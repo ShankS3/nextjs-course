@@ -1,22 +1,30 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import Button from '../common/Button';
 import classes from './EventSearch.module.css';
 
-function EventSearch() {
+function EventSearch({ onSearch }) {
+  const [year, setYear] = useState('2021');
+  const [month, setMonth] = useState('1');
+
+  function submitHandler(e) {
+    e.preventDefault();
+    onSearch(year, month);
+  }
+
   return (
-   <form className={classes.form}>
+   <form className={classes.form} onSubmit={submitHandler}>
     <div className={classes.controls}>
       <div className={classes.control}>
         <label htmlFor='year'>Year</label>
-        <select id='year'>
+        <select id='year' value={year} onChange={(e) => setYear(e.target.value)}>
           <option>2021</option>
           <option>2022</option>
         </select>
       </div>
       <div className={classes.control}>
         <label htmlFor='month'>Month</label>
-        <select id='month'>
+        <select id='month' value={month} onChange={(e) => setMonth(e.target.value)}>
           <option value={1}>January</option>
           <option value={2}>February</option>
           <option value={3}>March</option>
